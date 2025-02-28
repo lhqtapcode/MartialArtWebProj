@@ -1,4 +1,3 @@
-// Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Navigation and header functionality
     const header = document.querySelector('header');
@@ -111,11 +110,24 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Shopping cart functionality
     let cartItems = 0;
+    let cartCourses = [];
     
     addToCartButtons.forEach(button => {
         button.addEventListener('click', function() {
+            // Get course information
+            const courseCard = this.closest('.course-card');
+            const courseName = courseCard.querySelector('h3').textContent;
+            const coursePrice = courseCard.querySelector('.price').textContent;
+            
+            // Add to cart count
             cartItems++;
             cartCount.textContent = cartItems;
+            
+            // Save course to cart array
+            cartCourses.push({
+                name: courseName,
+                price: coursePrice
+            });
             
             // Animation for cart button
             button.textContent = 'Added to Cart!';
@@ -134,8 +146,127 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 cartIcon.classList.remove('cart-pulse');
             }, 500);
+            
+            // Show alert with course information
+            showAddToCartAlert(courseName, coursePrice);
         });
     });
+    
+    // Function to display alert when course is added to cart
+    function showAddToCartAlert(courseName, coursePrice) {
+        // Create alert container
+        const alertContainer = document.createElement('div');
+        alertContainer.className = 'cart-alert';
+        
+        // Add alert content
+        alertContainer.innerHTML = `
+            <div class="alert-content">
+                <i class="fas fa-check-circle"></i>
+                <div class="alert-message">
+                    <h4>Course Added to Cart!</h4>
+                    <p>${courseName}</p>
+                    <p class="alert-price">${coursePrice}</p>
+                </div>
+                <button class="alert-close">&times;</button>
+            </div>
+        `;
+        
+        // Add to document
+        document.body.appendChild(alertContainer);
+        
+        // Show alert with animation
+        setTimeout(() => {
+            alertContainer.classList.add('active');
+        }, 10);
+        
+        // Close button functionality
+        alertContainer.querySelector('.alert-close').addEventListener('click', function() {
+            closeAlert(alertContainer);
+        });
+        
+        // Auto close after 4 seconds
+        setTimeout(() => {
+            closeAlert(alertContainer);
+        }, 4000);
+    }
+    
+    // Function to close alert
+    function closeAlert(alertContainer) {
+        alertContainer.classList.remove('active');
+        setTimeout(() => {
+            alertContainer.remove();
+        }, 300);
+    }
+    
+    // Add CSS for alert styling
+    const alertStyle = document.createElement('style');
+    alertStyle.textContent = `
+        .cart-alert {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background-color: var(--dark-gray);
+            border-left: 4px solid var(--primary);
+            border-radius: 5px;
+            padding: 15px 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1100;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            max-width: 350px;
+        }
+        
+        .cart-alert.active {
+            transform: translateX(0);
+        }
+        
+        .alert-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .alert-content i {
+            color: var(--primary);
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .alert-message {
+            flex: 1;
+        }
+        
+        .alert-message h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+        
+        .alert-message p {
+            font-size: 14px;
+            color: #bdbdbd;
+            margin: 0;
+        }
+        
+        .alert-price {
+            color: var(--secondary) !important;
+            font-weight: bold;
+        }
+        
+        .alert-close {
+            background: none;
+            border: none;
+            color: #bdbdbd;
+            font-size: 20px;
+            cursor: pointer;
+            margin-left: 10px;
+            padding: 0 5px;
+        }
+        
+        .alert-close:hover {
+            color: var(--primary);
+        }
+    `;
+    document.head.appendChild(alertStyle);
     
     // CTA buttons functionality
     ctaButtons.forEach(button => {
@@ -265,4 +396,368 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1500);
         });
     }
+    
+    // Add click event to cart icon to show cart contents
+    const cartIcon = document.querySelector('.cart-icon');
+    
+    cartIcon.addEventListener('click', function() {
+        if (cartItems > 0) {
+            showCartContents();
+        } else {
+            showEmptyCartMessage();
+        }
+    });
+    
+    // Function to show cart contents
+    function showCartContents() {
+        // Create cart modal container
+        const cartModal = document.createElement('div');
+        cartModal.className = 'cart-modal';
+        
+        // Generate course list HTML
+        let coursesHTML = '';
+        let totalPrice = 0;
+        
+        cartCourses.forEach((course, index) => {
+            // Extract price as number
+            const priceValue = parseFloat(course.price.replace('$', ''));
+            totalPrice += priceValue;
+            
+            coursesHTML += `
+                <div class="cart-item">
+                    <span class="cart-item-name">${course.name}</span>
+                    <span class="cart-item-price">${course.price}</span>
+                    <button class="remove-item" data-index="${index}">&times;</button>
+                </div>
+            `;
+        });
+        
+        // Add modal content
+        cartModal.innerHTML = `
+            <div class="cart-modal-content">
+                <div class="cart-header">
+                    <h3>Your Cart (${cartItems})</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="cart-items">
+                    ${coursesHTML}
+                </div>
+                <div class="cart-footer">
+                    <div class="cart-total">
+                        <span>Total:</span>
+                        <span>$${totalPrice.toFixed(2)}</span>
+                    </div>
+                    <button class="checkout-btn">Proceed to Checkout</button>
+                </div>
+            </div>
+        `;
+        
+        // Add to document
+        document.body.appendChild(cartModal);
+        
+        // Add backdrop
+        const backdrop = document.createElement('div');
+        backdrop.className = 'modal-backdrop';
+        document.body.appendChild(backdrop);
+        
+        // Show modal with animation
+        setTimeout(() => {
+            cartModal.classList.add('active');
+            backdrop.classList.add('active');
+        }, 10);
+        
+        // Close modal on close button click
+        cartModal.querySelector('.close-modal').addEventListener('click', function() {
+            closeCartModal(cartModal, backdrop);
+        });
+        
+        // Close modal on backdrop click
+        backdrop.addEventListener('click', function() {
+            closeCartModal(cartModal, backdrop);
+        });
+        
+        // Remove item from cart
+        cartModal.querySelectorAll('.remove-item').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                removeFromCart(index, cartModal, backdrop);
+            });
+        });
+        
+        // Checkout button
+        cartModal.querySelector('.checkout-btn').addEventListener('click', function() {
+            alert('Proceeding to checkout! This would normally redirect to a payment page.');
+            closeCartModal(cartModal, backdrop);
+        });
+    }
+    
+    // Function to show empty cart message
+    function showEmptyCartMessage() {
+        const cartModal = document.createElement('div');
+        cartModal.className = 'cart-modal';
+        
+        cartModal.innerHTML = `
+            <div class="cart-modal-content">
+                <div class="cart-header">
+                    <h3>Your Cart</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="cart-empty">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Your cart is empty</p>
+                    <button class="continue-shopping">Continue Shopping</button>
+                </div>
+            </div>
+        `;
+        
+        // Add to document
+        document.body.appendChild(cartModal);
+        
+        // Add backdrop
+        const backdrop = document.createElement('div');
+        backdrop.className = 'modal-backdrop';
+        document.body.appendChild(backdrop);
+        
+        // Show modal with animation
+        setTimeout(() => {
+            cartModal.classList.add('active');
+            backdrop.classList.add('active');
+        }, 10);
+        
+        // Close modal on close button click
+        cartModal.querySelector('.close-modal').addEventListener('click', function() {
+            closeCartModal(cartModal, backdrop);
+        });
+        
+        // Close modal on backdrop click
+        backdrop.addEventListener('click', function() {
+            closeCartModal(cartModal, backdrop);
+        });
+        
+        // Continue shopping button
+        cartModal.querySelector('.continue-shopping').addEventListener('click', function() {
+            closeCartModal(cartModal, backdrop);
+            
+            // Scroll to courses section
+            const coursesSection = document.getElementById('courses');
+            const headerHeight = header.offsetHeight;
+            const targetPosition = coursesSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    // Function to close cart modal
+    function closeCartModal(modal, backdrop) {
+        modal.classList.remove('active');
+        backdrop.classList.remove('active');
+        
+        setTimeout(() => {
+            modal.remove();
+            backdrop.remove();
+        }, 300);
+    }
+    
+    // Function to remove item from cart
+    function removeFromCart(index, modal, backdrop) {
+        // Remove from cart array
+        cartCourses.splice(index, 1);
+        
+        // Update cart count
+        cartItems--;
+        cartCount.textContent = cartItems;
+        
+        // If cart is empty now, show empty cart message
+        if (cartItems === 0) {
+            closeCartModal(modal, backdrop);
+            showEmptyCartMessage();
+        } else {
+            // Otherwise refresh cart modal
+            closeCartModal(modal, backdrop);
+            showCartContents();
+        }
+    }
+    
+    // Add CSS for cart modal
+    const cartModalStyle = document.createElement('style');
+    cartModalStyle.textContent = `
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1200;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(3px);
+        }
+        
+        .modal-backdrop.active {
+            opacity: 1;
+        }
+        
+        .cart-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            z-index: 1300;
+            width: 100%;
+            max-width: 500px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-modal.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .cart-modal-content {
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .cart-header {
+            padding: 20px;
+            background-color: var(--medium-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .cart-header h3 {
+            font-size: 18px;
+            color: var(--text);
+            margin: 0;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+        
+        .close-modal:hover {
+            color: var(--primary);
+        }
+        
+        .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 0 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .cart-item-name {
+            flex: 1;
+            font-size: 14px;
+            color: var(--text);
+        }
+        
+        .cart-item-price {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--secondary);
+            margin: 0 20px;
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: #bdbdbd;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+        
+        .remove-item:hover {
+            color: var(--primary);
+        }
+        
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .cart-total span:last-child {
+            color: var(--secondary);
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            background-color: var(--primary);
+            color: var(--text);
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #ff3813;
+        }
+        
+        .cart-empty {
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .cart-empty i {
+            font-size: 48px;
+            color: var(--light-gray);
+            margin-bottom: 20px;
+        }
+        
+        .cart-empty p {
+            font-size: 16px;
+            color: #bdbdbd;
+            margin-bottom: 25px;
+        }
+        
+        .continue-shopping {
+            background-color: var(--primary);
+            color: var(--text);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .continue-shopping:hover {
+            background-color: #ff3813;
+        }
+    `;
+    document.head.appendChild(cartModalStyle);
 });
