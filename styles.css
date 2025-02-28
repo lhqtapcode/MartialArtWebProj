@@ -193,7 +193,7 @@ nav {
 /* Hero Section */
 .hero {
     height: 100vh;
-    background-image: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.7)), url('/api/placeholder/1920/1080');
+    background-image: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.7)), url('https://as1.ftcdn.net/v2/jpg/05/89/61/24/1000_F_589612437_CjpkeO3pyFC9AEXrmYynS0awhPajxaYt.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
