@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Your Power - Martial Arts Courses</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1>POWER<span>DOJO</span></h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>MASTER YOUR POWER</h1>
+            <p>Unlock your potential with expert-led martial arts courses</p>
+            <button class="cta-button">Explore Courses</button>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses-section">
+        <div class="section-title">
+            <h2>OUR COURSES</h2>
+            <p>Discover your path to mastery</p>
+        </div>
+        <div class="course-filter">
+            <button class="filter-btn active" data-filter="all">All Courses</button>
+            <button class="filter-btn" data-filter="beginner">Beginner</button>
+            <button class="filter-btn" data-filter="intermediate">Intermediate</button>
+            <button class="filter-btn" data-filter="advanced">Advanced</button>
+        </div>
+        <div class="courses-container">
+            <!-- Muay Thai -->
+            <div class="course-card" data-category="intermediate">
+                <div class="course-image">
+                    <img src="" alt="Muay Thai Training">
+                    <div class="difficulty">Intermediate</div>
+                </div>
+                <div class="course-details">
+                    <h3>MUAY THAI FUNDAMENTALS</h3>
+                    <p>Master the art of eight limbs with our comprehensive Muay Thai program led by champion fighters.</p>
+                    <div class="course-meta">
+                        <div class="rating">
+                            <span class="stars">★★★★<span class="half-star">★</span></span>
+                            <span class="rating-text">4.5 (120 reviews)</span>
+                        </div>
+                        <div class="price">$149.99</div>
+                    </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Taekwondo -->
+            <div class="course-card" data-category="beginner">
+                <div class="course-image">
+                    <img src="/api/placeholder/400/250" alt="Taekwondo Training">
+                    <div class="difficulty">Beginner</div>
+                </div>
+                <div class="course-details">
+                    <h3>TAEKWONDO MASTERY</h3>
+                    <p>Develop powerful kicks and lightning-fast reflexes with our Korean martial art program.</p>
+                    <div class="course-meta">
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">5.0 (98 reviews)</span>
+                        </div>
+                        <div class="price">$129.99</div>
+                    </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Boxing -->
+            <div class="course-card" data-category="beginner">
+                <div class="course-image">
+                    <img src="/api/placeholder/400/250" alt="Boxing Training">
+                    <div class="difficulty">Beginner</div>
+                </div>
+                <div class="course-details">
+                    <h3>BOXING ESSENTIALS</h3>
+                    <p>Learn the sweet science from professional boxers with our comprehensive striking program.</p>
+                    <div class="course-meta">
+                        <div class="rating">
+                            <span class="stars">★★★★<span class="half-star">★</span></span>
+                            <span class="rating-text">4.7 (155 reviews)</span>
+                        </div>
+                        <div class="price">$139.99</div>
+                    </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Judo -->
+            <div class="course-card" data-category="advanced">
+                <div class="course-image">
+                    <img src="/api/placeholder/400/250" alt="Judo Training">
+                    <div class="difficulty">Advanced</div>
+                </div>
+                <div class="course-details">
+                    <h3>JUDO COMPETITION PREP</h3>
+                    <p>Perfect your throws and ground control with our Olympic-level Judo training program.</p>
+                    <div class="course-meta">
+                        <div class="rating">
+                            <span class="stars">★★★★<span class="half-star">★</span></span>
+                            <span class="rating-text">4.6 (87 reviews)</span>
+                        </div>
+                        <div class="price">$159.99</div>
+                    </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Wing Chun -->
+            <div class="course-card" data-category="intermediate">
+                <div class="course-image">
+                    <img src="/api/placeholder/400/250" alt="Wing Chun Training">
+                    <div class="difficulty">Intermediate</div>
+                </div>
+                <div class="course-details">
+                    <h3>WING CHUN TECHNIQUES</h3>
+                    <p>Develop efficient self-defense skills with our traditional Chinese martial art course.</p>
+                    <div class="course-meta">
+                        <div class="rating">
+                            <span class="stars">★★★★<span class="half-star">★</span></span>
+                            <span class="rating-text">4.3 (76 reviews)</span>
+                        </div>
+                        <div class="price">$145.99</div>
+                    </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="section-title">
+            <h2>WHY CHOOSE US</h2>
+            <p>Train with confidence and purpose</p>
+        </div>
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h3>EXPERT INSTRUCTORS</h3>
+                <p>Learn from certified masters and champion fighters with decades of experience.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-film"></i>
+                </div>
+                <h3>HD VIDEO LESSONS</h3>
+                <p>Access high-quality, detailed video instructions filmed from multiple angles.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>COMMUNITY SUPPORT</h3>
+                <p>Join our global community of martial artists for support and motivation.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3>CERTIFICATION</h3>
+                <p>Earn recognized certificates as you progress through your martial arts journey.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="section-title">
+            <h2>STUDENT TESTIMONIALS</h2>
+            <p>Hear from our community</p>
+        </div>
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    <p>"The Muay Thai course transformed my fitness and confidence. The instructors break down complex techniques into manageable steps."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="/api/placeholder/60/60" alt="Student">
+                    <div class="author-info">
+                        <h4>David Chen</h4>
+                        <p>Muay Thai Student</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    <p>"As a complete beginner, I was intimidated by martial arts, but the Boxing Essentials course made learning enjoyable and accessible."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="/api/placeholder/60/60" alt="Student">
+                    <div class="author-info">
+                        <h4>Sarah Johnson</h4>
+                        <p>Boxing Student</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    <p>"The Judo Competition Prep course helped me refine my techniques and strategy. I won my first tournament after completing it!"</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="/api/placeholder/60/60" alt="Student">
+                    <div class="author-info">
+                        <h4>Michael Rodriguez</h4>
+                        <p>Judo Competitor</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>START YOUR MARTIAL ARTS JOURNEY TODAY</h2>
+            <p>Special offer: Get 15% off when you purchase any two courses</p>
+            <button class="cta-button">Browse All Courses</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>POWER<span>DOJO</span></h2>
+                <p>Transforming lives through martial arts since 2010</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> info@powerdojo.com</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Martial Arts St, Fighter City</p>
+            </div>
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 PowerDojo Martial Arts. All Rights Reserved.</p>
+        </div>
+        <button id="back-to-top" title="Back to Top"><i class="fas fa-arrow-up"></i></button>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
